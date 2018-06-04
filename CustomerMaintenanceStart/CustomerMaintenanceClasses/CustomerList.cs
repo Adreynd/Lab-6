@@ -5,14 +5,14 @@ using System.Text;
 
 namespace CustomerMaintenanceClasses
 {
-    class CustomerList
+    public class CustomerList
     {
-        public List<Customer> customers;
+        private List<Customer> customers;
         private int count;
 
         public CustomerList()
         {
-            customers = null;
+            customers = new List<Customer>();
             count = 0;
         }
 
@@ -21,14 +21,21 @@ namespace CustomerMaintenanceClasses
             get { return count; }
         }
 
+        public Customer Index(int i)
+        {
+            return customers[i];
+        }
+
         public void Add(Customer c)
         {
             customers.Add(c);
+            count++;
         }
 
         public void Remove(Customer c)
         {
             customers.Remove(c);
+            count--;
         }
 
         static public CustomerList operator+(CustomerList cl, Customer c)

@@ -49,7 +49,7 @@ namespace CustomerTests
             Customer c1 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
 
             Console.WriteLine("Testing setters");
-            c1.FirstName = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+            c1.FirstName = "Kyle";
             c1.LastName = "Normand";
             c1.Email = "kyle@normand.com";
             Console.WriteLine("Expecting Kyle, Normand, kyle@normand.com.");
@@ -69,21 +69,21 @@ namespace CustomerTests
 
         static void TestCustomerListAddRemove()
         {
-            CustomerList cl;
+            CustomerList cl = new CustomerList();
             Customer c = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
 
             cl += c;
 
             Console.WriteLine("Testing add customer.");
             Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com.");
-            Console.WriteLine("Getting " + cl[0].GetDisplayText());
+            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText());
             Console.WriteLine();
 
             cl -= c;
 
             Console.WriteLine("Testing remove customer.");
             Console.WriteLine("Removing Nohm Chomskey. Expecting empty list.");
-            Console.WriteLine("Getting " + cl[0].GetDisplayText());
+            Console.WriteLine("Getting " + cl.Count + " customers.");
             Console.WriteLine();
         }
     }
