@@ -16,6 +16,7 @@ namespace CustomerTests
             TestCustomerSetters();
             TestCustomerToString();
             TestCustomerListAddRemove();
+            TestCustomerOverrideListAddRemove();
 
             Console.WriteLine();
             Console.ReadLine();
@@ -72,16 +73,36 @@ namespace CustomerTests
             CustomerList cl = new CustomerList();
             Customer c = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
 
-            cl += c;
+            cl.Add(c);
 
             Console.WriteLine("Testing add customer.");
             Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com.");
             Console.WriteLine("Getting " + cl.Index(0).GetDisplayText());
             Console.WriteLine();
 
-            cl -= c;
+            cl.Remove(c);
 
             Console.WriteLine("Testing remove customer.");
+            Console.WriteLine("Removing Nohm Chomskey. Expecting empty list.");
+            Console.WriteLine("Getting " + cl.Count + " customers.");
+            Console.WriteLine();
+        }
+
+        static void TestCustomerOverrideListAddRemove()
+        {
+            CustomerList cl = new CustomerList();
+            Customer c = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+
+            cl += c;
+
+            Console.WriteLine("Testing overrided add customer.");
+            Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com.");
+            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText());
+            Console.WriteLine();
+
+            cl -= c;
+
+            Console.WriteLine("Testing overrided remove customer.");
             Console.WriteLine("Removing Nohm Chomskey. Expecting empty list.");
             Console.WriteLine("Getting " + cl.Count + " customers.");
             Console.WriteLine();
