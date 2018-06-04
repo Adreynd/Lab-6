@@ -16,7 +16,11 @@ namespace CustomerTests
             TestCustomerSetters();
             TestCustomerToString();
             TestCustomerListAddRemove();
-            TestCustomerOverrideListAddRemove();
+            TestCustomerListOverrideAddRemove();
+            TestCustomerListCount();
+            TestCustomerListIndex();
+            TestCustomerListFind();
+            TestCustomerEquals();
 
             Console.WriteLine();
             Console.ReadLine();
@@ -76,8 +80,8 @@ namespace CustomerTests
             cl.Add(c);
 
             Console.WriteLine("Testing add customer.");
-            Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com.");
-            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText());
+            Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com, with one item in the list.");
+            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText() + " with a total of " + cl.Count + " items.");
             Console.WriteLine();
 
             cl.Remove(c);
@@ -88,23 +92,116 @@ namespace CustomerTests
             Console.WriteLine();
         }
 
-        static void TestCustomerOverrideListAddRemove()
+        static void TestCustomerListOverrideAddRemove()
         {
             CustomerList cl = new CustomerList();
             Customer c = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
 
             cl += c;
 
-            Console.WriteLine("Testing overrided add customer.");
-            Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com.");
-            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText());
+            Console.WriteLine("Testing overloaded + operator.");
+            Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com. with one item in the list.");
+            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText() + " with a total of " + cl.Count + " items.");
             Console.WriteLine();
 
             cl -= c;
 
-            Console.WriteLine("Testing overrided remove customer.");
+            Console.WriteLine("Testing overloaded - operator.");
             Console.WriteLine("Removing Nohm Chomskey. Expecting empty list.");
             Console.WriteLine("Getting " + cl.Count + " customers.");
+            Console.WriteLine();
+        }
+
+        static void TestCustomerListCount()
+        {
+            CustomerList cl = new CustomerList();
+            Customer c = new Customer();
+
+            for (int i = 0; i < 15; i++)
+                cl += c;
+
+            Console.WriteLine("Testing counter variable.");
+            Console.WriteLine("Expecting 15 items in the list.");
+            Console.WriteLine("Getting a total of " + cl.Count + " customers.");
+            Console.WriteLine();
+
+            for (int i = 0; i < 7; i++)
+                cl -= c;
+
+            Console.WriteLine("Removing 7 items. Expecing 8 items to be left in the list.");
+            Console.WriteLine("Getting " + cl.Count + " customers.");
+            Console.WriteLine();
+        }
+
+        static void TestCustomerListIndex()
+        {
+            CustomerList cl = new CustomerList();
+            Customer c = new Customer();
+            Customer c2 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+
+            for (int i = 0; i < 4; i++)
+                cl.Add(c);
+            cl.Add(c2);
+            for (int i = 0; i < 10; i++)
+                cl.Add(c);
+
+            Console.WriteLine("Testing indexer Placing 15 items in the list.");
+            Console.WriteLine("Expecting the customer at index 4 to be Nohm Chomskey.");
+            Console.WriteLine("The customer at index 4 is " + cl.Index(4).FirstName + " " + cl.Index(4).LastName);
+            Console.WriteLine();
+        }
+
+        static void TestCustomerListFind()
+        {
+            CustomerList cl = new CustomerList();
+            Customer c = new Customer();
+            Customer c2 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+            Customer c3;
+
+            for (int i = 0; i < 4; i++)
+                cl.Add(c);
+            cl.Add(c2);
+            for (int i = 0; i < 10; i++)
+                cl.Add(c);
+
+            Console.WriteLine("Testing email indexer.");
+            Console.WriteLine("Expecting to find the customer with the email nohm@chomskey and not the email edward@adams.com.");
+            if (cl.FindCustomer("nohm@chomskey.com").Email == "nohm@chomskey.com")
+            {
+                c3 = cl.FindCustomer("nohm@chomskey.com");
+                Console.WriteLine("Found " + c3.FirstName + " " + c3.LastName + " with the email " + c3.Email);
+            }
+            else
+                Console.WriteLine("Customer with email nohm@chomskey.com not found.");;
+            if (cl.FindCustomer("edward@adams.com").Email == "edward@adams.com")
+            {
+                c3 = cl.FindCustomer("edward@adams.com");
+                Console.WriteLine("Found " + c3.FirstName + " " + c3.LastName + " with the email " + c3.Email);
+            }
+            else
+                Console.WriteLine("Customer with email edward@adams.com not found.");
+            Console.WriteLine();
+        }
+
+        static void TestCustomerEquals()
+        {
+            Customer c1 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+            Customer c2 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+
+            Console.WriteLine("Testing overloaded equals operator.");
+            Console.WriteLine("Expecting customer 1 to be equal to customer 2.");
+            if (c1 == c2)
+                Console.WriteLine("Customer 1 is equal to customer 2");
+            else
+                Console.WriteLine("Customer 1 is not equal to customer 2");
+            Console.WriteLine();
+
+            Console.WriteLine("Testing equals method.");
+            Console.WriteLine("Expecting customer 1 to be equal to customer 2.");
+            if (c1.Equals(c2))
+                Console.WriteLine("Customer 1 is equal to customer 2");
+            else
+                Console.WriteLine("Customer 1 is not equal to customer 2");
             Console.WriteLine();
         }
     }

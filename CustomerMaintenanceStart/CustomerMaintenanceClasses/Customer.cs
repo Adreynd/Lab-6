@@ -55,5 +55,36 @@ namespace CustomerMaintenanceClasses
         {
             return firstName + " " + lastName + " " + email;
         }
+
+        static public bool operator ==(Customer c1, Customer c2)
+        {
+            if (c1.Equals(null))
+                return c2.Equals(null);
+            else
+                return c1.Email == c2.Email;
+        }
+
+        static public bool operator !=(Customer c1, Customer c2)
+        {
+            return !Equals(c1, c2);
+        }
+
+        public override bool Equals(object o)
+        {
+            if ((o == null) || !this.GetType().Equals(o.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Customer c = (Customer) o;
+                return this == c;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return (firstName + " " + lastName + " " + email).GetHashCode();
+        }
     }
 }

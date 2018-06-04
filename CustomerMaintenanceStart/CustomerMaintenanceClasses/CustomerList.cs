@@ -26,6 +26,16 @@ namespace CustomerMaintenanceClasses
             return customers[i];
         }
 
+        public Customer FindCustomer(string e)
+        {
+            Customer c = new Customer();
+            c.Email = e;
+            if (customers.IndexOf(c) >= 0)
+                return Index(customers.IndexOf(c));
+            else
+                return new Customer("InvalidCustomer", "", "invalid@customer.com");
+        }
+
         public void Add(Customer c)
         {
             customers.Add(c);
