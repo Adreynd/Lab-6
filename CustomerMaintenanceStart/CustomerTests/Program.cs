@@ -15,6 +15,7 @@ namespace CustomerTests
             TestCustomerGetters();
             TestCustomerSetters();
             TestCustomerToString();
+            TestCustomerExceptions();
             TestCustomerListAddRemove();
             TestCustomerListOverrideAddRemove();
             TestCustomerListCount();
@@ -69,6 +70,47 @@ namespace CustomerTests
             Console.WriteLine("Testing ToString");
             Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com. " + c1.GetDisplayText());
             Console.WriteLine("Getting Nohm, Chomskey, nohm@chomskey.com. " + c1.ToString());
+            Console.WriteLine();
+        }
+
+        static void TestCustomerExceptions()
+        {
+            Customer c1 = new Customer("Nohm", "Chomskey", "nohm@chomskey.com");
+
+            Console.WriteLine("Testing customer set exceptions");
+            Console.WriteLine("Attempting to set first name, last name, and email to more than 30 characters, expecting an exception from each.");
+
+            try
+            {
+                c1.FirstName = "11111111111111111111111111111111111111111111111111111111111111111111";
+                Console.WriteLine("Exception not caught.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception caught with message " + e);
+            }
+            Console.WriteLine();
+
+            try
+            {
+                c1.LastName = "11111111111111111111111111111111111111111111111111111111111111111111";
+                Console.WriteLine("Exception not caught.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception caught with message " + e);
+            }
+            Console.WriteLine();
+
+            try
+            {
+                c1.Email = "11111111111111111111111111111111111111111111111111111111111111111111@.";
+                Console.WriteLine("Exception not caught.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception caught with message " + e);
+            }
             Console.WriteLine();
         }
 
