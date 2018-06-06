@@ -22,6 +22,8 @@ namespace CustomerTests
             TestCustomerListIndex();
             TestCustomerListFind();
             TestCustomerEquals();
+            TestCustomerListSave();
+            TestCustomerListFill();
 
             Console.WriteLine();
             Console.ReadLine();
@@ -244,6 +246,47 @@ namespace CustomerTests
                 Console.WriteLine("Customer 1 is equal to customer 2");
             else
                 Console.WriteLine("Customer 1 is not equal to customer 2");
+            Console.WriteLine();
+        }
+
+        static void TestCustomerListSave()
+        {
+            CustomerList cl = new CustomerList();
+            List<Customer> customers;
+
+            Console.WriteLine("Testing CustomerList save.");
+            Console.Write("Expecting ");
+            customers = CustomerDB.GetCustomers();
+
+            for (int i = 0; i < customers.Count; i++)
+                Console.WriteLine(customers[i].GetDisplayText());
+
+            for (int i = 0; i < customers.Count; i++)
+                cl.Add(customers[i]);
+
+            Console.Write("Getting ");
+            cl.Save();
+            customers = CustomerDB.GetCustomers();
+            for (int i = 0; i < customers.Count; i++)
+                Console.WriteLine(customers[i].GetDisplayText());
+            Console.WriteLine();
+        }
+
+        static void TestCustomerListFill()
+        {
+            CustomerList cl = new CustomerList();
+            List<Customer> customers;
+            customers = CustomerDB.GetCustomers();
+
+            Console.WriteLine("Testing CustomerList fill.");
+            Console.Write("Expecting ");
+            for (int i = 0; i < customers.Count; i++)
+                Console.WriteLine(customers[i]);
+            cl.Fill();
+
+            Console.Write("Getting ");
+            for (int i = 0; i < cl.Count; i++)
+                Console.WriteLine(cl.Index(i).GetDisplayText());
             Console.WriteLine();
         }
     }

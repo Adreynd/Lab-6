@@ -48,6 +48,18 @@ namespace CustomerMaintenanceClasses
             count--;
         }
 
+        public void Fill()
+        {
+            customers.Clear();
+            customers = CustomerDB.GetCustomers();
+            count = customers.Count();
+        }
+
+        public void Save()
+        {
+            CustomerDB.SaveCustomers(customers);
+        }
+
         static public CustomerList operator+(CustomerList cl, Customer c)
         {
             cl.Add(c);
