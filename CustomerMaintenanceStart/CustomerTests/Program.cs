@@ -125,7 +125,7 @@ namespace CustomerTests
 
             Console.WriteLine("Testing add customer.");
             Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com, with one item in the list.");
-            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText() + " with a total of " + cl.Count + " items.");
+            Console.WriteLine("Getting " + cl[0].GetDisplayText() + " with a total of " + cl.Count + " items.");
             Console.WriteLine();
 
             cl.Remove(c);
@@ -145,7 +145,7 @@ namespace CustomerTests
 
             Console.WriteLine("Testing overloaded + operator.");
             Console.WriteLine("Expecting Nohm, Chomskey, nohm@chomskey.com. with one item in the list.");
-            Console.WriteLine("Getting " + cl.Index(0).GetDisplayText() + " with a total of " + cl.Count + " items.");
+            Console.WriteLine("Getting " + cl[0].GetDisplayText() + " with a total of " + cl.Count + " items.");
             Console.WriteLine();
 
             cl -= c;
@@ -189,9 +189,13 @@ namespace CustomerTests
             for (int i = 0; i < 10; i++)
                 cl.Add(c);
 
-            Console.WriteLine("Testing indexer Placing 15 items in the list.");
+            Console.WriteLine("Testing indexer getter. Placing 15 items in the list.");
             Console.WriteLine("Expecting the customer at index 4 to be Nohm Chomskey.");
-            Console.WriteLine("The customer at index 4 is " + cl.Index(4).FirstName + " " + cl.Index(4).LastName);
+            Console.WriteLine("The customer at index 4 is " + cl[4].FirstName + " " + cl[4].LastName);
+            Console.WriteLine("Testing indexer setter.");
+            cl[5] = c2;
+            Console.WriteLine("Expecting the customer at index 4 to be Nohm Chomskey.");
+            Console.WriteLine("The customer at index 4 is " + cl[5].FirstName + " " + cl[5].LastName);
             Console.WriteLine();
         }
 
@@ -210,16 +214,16 @@ namespace CustomerTests
 
             Console.WriteLine("Testing email indexer.");
             Console.WriteLine("Expecting to find the customer with the email nohm@chomskey and not the email edward@adams.com.");
-            if (cl.FindCustomer("nohm@chomskey.com").Email == "nohm@chomskey.com")
+            if (cl["nohm@chomskey.com"].Email == "nohm@chomskey.com")
             {
-                c3 = cl.FindCustomer("nohm@chomskey.com");
+                c3 = cl["nohm@chomskey.com"];
                 Console.WriteLine("Found " + c3.FirstName + " " + c3.LastName + " with the email " + c3.Email);
             }
             else
                 Console.WriteLine("Customer with email nohm@chomskey.com not found.");;
-            if (cl.FindCustomer("edward@adams.com").Email == "edward@adams.com")
+            if (cl["edward@adams.com"].Email == "edward@adams.com")
             {
-                c3 = cl.FindCustomer("edward@adams.com");
+                c3 = cl["edward@adams.com"];
                 Console.WriteLine("Found " + c3.FirstName + " " + c3.LastName + " with the email " + c3.Email);
             }
             else
@@ -286,7 +290,7 @@ namespace CustomerTests
 
             Console.Write("Getting ");
             for (int i = 0; i < cl.Count; i++)
-                Console.WriteLine(cl.Index(i).GetDisplayText());
+                Console.WriteLine(cl[i].GetDisplayText());
             Console.WriteLine();
         }
     }
